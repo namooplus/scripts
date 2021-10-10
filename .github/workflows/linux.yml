@@ -23,7 +23,7 @@ jobs:
         run: wget https://github.com/namooplus/linux/archive/${{ env.CUR_COMMIT }}.zip
         
       - name: Unzip the downloaded submodule
-        run: unzip linux-${{ env.CUR_COMMIT }}.zip
+        run: unzip ${{ env.CUR_COMMIT }}.zip
         
       - name: Clean build
         run: ./build-linux.sh linux-${{ env.CUR_COMMIT }} tinyconfig
