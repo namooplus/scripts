@@ -1,0 +1,29 @@
+name: Check clean build of linux
+
+on:
+  push:
+    paths:
+      - 'linux'
+      
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: ./install-deps.sh
+      
+      - name: Get the current commit of the linux submoudle
+        run: echo "CUR_COMMIT=$(git rev-parse HEAD:linux)" >> $GITHUB_ENV
+
+      - name: Download the submodule
+        run: wget https://github.com/namooplus/linux/archive/${{ env.CUR_COMMIT }}.zip
+        
+      - name: Unzip the downloaded submodule
+        run: unzip linux-${{ env.CUR_COMMIT }}.zip
+        
+      - name: Clean build
+        run: ./build-linux.sh linux-${{ env.CUR_COMMIT }} tinyconfig
