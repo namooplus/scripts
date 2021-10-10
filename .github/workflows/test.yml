@@ -3,7 +3,7 @@ name: Check clean build of test cases
 on:
   push:
     paths:
-      - 'test'
+      - 'test/**'
       
 jobs:
   build:
